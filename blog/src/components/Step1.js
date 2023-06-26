@@ -1,145 +1,91 @@
+import React, { useState } from 'react';
+import { Form, Button, } from 'react-bootstrap';
 
-import { React, useState } from 'react';
-import { Form, Button, FormControl } from 'react-bootstrap';
+function Step1({ formData, nextStep, setField, errors, setErrors }) {
+    const [validated, setValidated] = useState(false);
 
-function Step1({ nextStep, setField, errors }) {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        nextStep();
+    };
+
 
     return (
-        <Form.Group>
-            <h1>Personal Information</h1>
-            <Form.Label >First Name:</Form.Label>
-            <Form.Control
-                type="text"
-                name="first"
-                onChange={(e) => setField('first', e.target.value)}
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form.Group>
+                <h1>Personal Information</h1>
+                <Form.Label>First Name:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="first"
+                    placeholder="Enter your First Name"
+                    onChange={(e) => setField('first', e.target.value)}
+                    isInvalid={!!errors.first}
+                    value={formData['first']}
+                    required
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.first}
+                </Form.Control.Feedback>
 
-                isInvalid={!!errors.text}
-                required
-            />
-            <div style={{ color: 'red' }}>{errors['first']}</div>
-            <br />
-            <Form.Label >last Name:</Form.Label>
-            <Form.Control
-                type="text"
-                name="last"
-                onChange={(e) => setField('last', e.target.value)}
+                <Form.Label>Last Name:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="last"
+                    value={formData['last']}
+                    placeholder="Enter your Last Name"
+                    onChange={(e) => setField('last', e.target.value)}
+                    isInvalid={!!errors.last}
+                    required
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.last}
+                </Form.Control.Feedback>
 
-                isInvalid={!!errors.text}
-                required
-            />
-            <div style={{ color: 'red' }}>{errors['last']}</div>
-            <br />
-            <Form.Label >Birthdate:</Form.Label>
-            <Form.Control
-                type="text"
-                name="birthdate"
-                onChange={(e) => setField('birthdate', e.target.value)}
+                <Form.Label>Birthdate:</Form.Label>
+                <Form.Control
+                    type="date"
+                    name="birthdate"
+                    value={formData['birthdate']}
+                    onChange={(e) => setField('birthdate', e.target.value)}
+                    required
+                />
+                <div style={{ color: 'red' }}>{errors.birthdate}</div>
+                <Form.Label>Phone:</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="phone"
+                    value={formData['phone']}
+                    onChange={(e) => setField('phone', e.target.value)}
+                    placeholder="Enter your Phone Number"
+                    required
+                />
+                <div style={{ color: 'red' }}>{errors.phone}</div>
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                    type="email"
+                    name="email"
+                    value={formData['email']}
+                    placeholder="Enter your Email"
+                    onChange={(e) => setField('email', e.target.value)}
 
-                isInvalid={!!errors.text}
-                required
-            />
-            <div style={{ color: 'red' }}>{errors['birthdate']}</div>
-            <br />
-            <Form.Label >Phone:</Form.Label>
-            <Form.Control
-                type="text"
-                name="Phone"
-                onChange={(e) => setField('phone', e.target.value)}
+                    required
+                />
+                <div style={{ color: 'red' }}>{errors.email}</div>
 
-
-                isInvalid={!!errors.text}
-                required
-            />
-            <div style={{ color: 'red' }}>{errors['date']}</div>
-            <br />
-            <Form.Label >Email:</Form.Label>
-            <Form.Control
-                type="email"
-                name="email"
-                onChange={(e) => setField('email', e.target.value)}
-
-                isInvalid={!!errors.text}
-                required
-            />
-            <div style={{ color: 'red' }}>{errors['email']}</div>
-            <br />
-
-
-
-
-
-            <Button variant="primary" onClick={nextStep}>
-                Next
-      </Button>
-        </Form.Group>
+                <Button variant="primary" type="submit" onClick={nextStep}>
+                    Next
+        </Button>
+            </Form.Group>
+        </Form >
     );
 }
 
 export default Step1;
-
-// import { React, useState } from 'react';
-// import { Form, Button } from 'react-bootstrap';
-
-// function Step1({ nextStep }) {
-//     const [formData, setFormData] = useState();
-//     const handleInputChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData((prevData) => ({
-//             ...prevData,
-//             [name]: value,
-//         }));
-
-//     }
-
-//     console.log(formData);
-
-//     return (
-//         <Form.Group>
-//             <h1>Personal Information</h1>
-//             <Form.Label>First Name:</Form.Label>
-//             <Form.Control
-//                 type="text"
-//                 name="first"
-//                 onChange={handleInputChange}
-
-//                 required
-//             />
-//             <br />
-
-
-//             <Form.Label>last Name:</Form.Label>
-//             <Form.Control
-//                 type="text"
-//                 name="lastname"
-//                 onChange={handleInputChange}
-//             />
-//             <br />
-//             <Form.Label>Birthdate:</Form.Label>
-//             <Form.Control
-//                 type="text"
-//                 name="birthdate"
-//                 onChange={handleInputChange}
-//             />
-//             <br />
-//             <Form.Label>Phone Number:</Form.Label>
-//             <Form.Control
-//                 type="text"
-//                 name="phone"
-//                 onChange={handleInputChange}
-//             />
-//             <br />
-//             <Form.Label>Email:</Form.Label>
-//             <Form.Control
-//                 type="email"
-//                 name="email"
-//                 onChange={handleInputChange}
-//             />
-//             <br />
-//             <Button variant="primary" onClick={nextStep}>
-//                 Next
-//       </Button>
-//         </Form.Group>
-//     );
-// }
-
-// export default Step1;
