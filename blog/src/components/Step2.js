@@ -2,45 +2,22 @@
 import { React, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-function Step2({ nextStep, prevStep, setField, errors }) {
-    const [formData, setFormData] = useState();
-    const [validated, setValidated] = useState(false);
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-        nextStep();
-    };
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    }
-
-    console.log(formData);
-
-
-
+function Step2({ formData, nextStep, prevStep, setField, errors }) {
 
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form >
             <Form.Group>
                 <h1>Address Information</h1>
                 <Form.Label>Address:</Form.Label>
                 <Form.Control
                     type="text"
                     name="address"
-                    placeholder="Enter your Address"
+                    value={formData['address']}
+                    placeholder="Enter your address"
                     onChange={(e) => setField('address', e.target.value)}
-                    isInvalid={!!errors.address}
+
+                    required
                 />
                 <div style={{ color: 'red' }}>{errors['address']}</div>
 
@@ -49,50 +26,55 @@ function Step2({ nextStep, prevStep, setField, errors }) {
                 <Form.Control
                     type="text"
                     name="country"
-                    placeholder="Enter your Country"
+                    value={formData['country']}
+                    placeholder="Enter your country"
                     onChange={(e) => setField('country', e.target.value)}
                     isInvalid={!!errors.country}
+                    required
                 />
                 <div style={{ color: 'red' }}>{errors['country']}</div>
 
 
-                <Form.Label>state</Form.Label>
+                <Form.Label>State</Form.Label>
                 <Form.Control
                     type="text"
                     name="state"
-                    placeholder="Enter your State"
+                    value={formData['state']}
+                    placeholder="Enter your state"
                     onChange={(e) => setField('state', e.target.value)}
                     isInvalid={!!errors.state}
+                    required
                 />
                 <div style={{ color: 'red' }}>{errors['state']}</div>
-
 
                 <Form.Label>City</Form.Label>
                 <Form.Control
                     type="text"
                     name="city"
-                    placeholder="Enter your City"
+                    value={formData['city']}
+                    placeholder="Enter your city"
                     onChange={(e) => setField('city', e.target.value)}
                     isInvalid={!!errors.city}
+                    required
                 />
                 <div style={{ color: 'red' }}>{errors['city']}</div>
 
 
                 <Form.Label>Zipcode</Form.Label>
                 <Form.Control
-                    type="text"
+                    type="number"
                     name="zipcode"
-                    placeholder="Enter your Zipcode"
+                    value={formData['zipcode']}
+                    placeholder="Enter your zipcode"
                     onChange={(e) => setField('zipcode', e.target.value)}
                     isInvalid={!!errors.zipcode}
+                    required
                 />
                 <div style={{ color: 'red' }}>{errors['zipcode']}</div>
 
 
-                <Button variant="secondary" onClick={prevStep}>
-                    Previous
-      </Button>
-                <Button variant="primary" onClick={nextStep}>Next</Button>
+                <Button variant="secondary" onClick={prevStep}>Previous</Button>
+                <Button variant="primary" type="submit" onClick={nextStep}>Next</Button>
             </Form.Group>
         </Form>
     );

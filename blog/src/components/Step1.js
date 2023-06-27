@@ -1,54 +1,32 @@
 import React, { useState } from 'react';
 import { Form, Button, } from 'react-bootstrap';
 
-function Step1({ formData, nextStep, setField, errors, setErrors }) {
-    const [validated, setValidated] = useState(false);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-        nextStep();
-    };
-
+function Step1({ formData, nextStep, setField, errors, }) {
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form  >
             <Form.Group>
                 <h1>Personal Information</h1>
                 <Form.Label>First Name:</Form.Label>
                 <Form.Control
                     type="text"
                     name="first"
-                    placeholder="Enter your First Name"
+                    placeholder="Enter your first name"
                     onChange={(e) => setField('first', e.target.value)}
-                    isInvalid={!!errors.first}
                     value={formData['first']}
                     required
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.first}
-                </Form.Control.Feedback>
-
+                <div style={{ color: 'red' }}>{errors.first}</div>
                 <Form.Label>Last Name:</Form.Label>
                 <Form.Control
                     type="text"
                     name="last"
                     value={formData['last']}
-                    placeholder="Enter your Last Name"
+                    placeholder="Enter your last name"
                     onChange={(e) => setField('last', e.target.value)}
-                    isInvalid={!!errors.last}
                     required
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.last}
-                </Form.Control.Feedback>
-
+                <div style={{ color: 'red' }}>{errors.last}</div>
                 <Form.Label>Birthdate:</Form.Label>
                 <Form.Control
                     type="date"
@@ -64,7 +42,7 @@ function Step1({ formData, nextStep, setField, errors, setErrors }) {
                     name="phone"
                     value={formData['phone']}
                     onChange={(e) => setField('phone', e.target.value)}
-                    placeholder="Enter your Phone Number"
+                    placeholder="Enter your phone number"
                     required
                 />
                 <div style={{ color: 'red' }}>{errors.phone}</div>
@@ -73,9 +51,8 @@ function Step1({ formData, nextStep, setField, errors, setErrors }) {
                     type="email"
                     name="email"
                     value={formData['email']}
-                    placeholder="Enter your Email"
+                    placeholder="Enter your email"
                     onChange={(e) => setField('email', e.target.value)}
-
                     required
                 />
                 <div style={{ color: 'red' }}>{errors.email}</div>
