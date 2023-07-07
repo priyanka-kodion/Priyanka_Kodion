@@ -1,31 +1,33 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-function SearchField({ onSubmit }) {
+import { Form, Button, Alert } from "react-bootstrap";
+
+function SearchField({ onSubmit, error }) {
   const [image, setImage] = useState("");
+
   const handleSubmit = (e) => {
-    e.prevent.Default();
+    e.preventDefault();
+
     onSubmit(image);
   };
 
   return (
-    <div className="header">
-      <div className="form-div">
-        <h3 className="text-center text-white">Images Search</h3>
-        <div className="form-container">
-          <Form onSubmit={handleSubmit}>
-            <Form.Control
-              type="text"
-              placeholder="enter image"
-              onChange={(e) => setImage(e.target.value)}
-              requires
-            />
-            <div className="bro">
-              <Button varient="primary" type="submit" onSubmit={handleSubmit}>
-                Search
-              </Button>
-            </div>
-          </Form>
-        </div>
+    <div className="form-div">
+      <h3 className="text-center text-white">Images Search</h3>
+      <div className="form-container">
+        <Form className="style" onSubmit={handleSubmit}>
+          <Form.Control
+            type="text"
+            name="image"
+            value={image}
+            placeholder="Search Images..."
+            onChange={(e) => setImage(e.target.value)}
+            required
+          />
+          {error && <Alert variant="danger">{error}</Alert>}
+          <div className="bro">
+            <Button type="submit">Search</Button>
+          </div>
+        </Form>
       </div>
     </div>
   );
