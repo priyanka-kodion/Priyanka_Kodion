@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Add from "./Components/Add";
 import List from "./Components/List";
 import Show from "./Components/Show";
+import "./App.css";
 
 const App = () => {
   const [products, setProducts] = useState([]);

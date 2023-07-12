@@ -18,7 +18,7 @@ const Show = ({ products }) => {
                 <Card.Text className="product-description">
                   {product.description}
                 </Card.Text>
-                <Card.Img src={product.image} className="product.image" />
+                <Card.Img src={product.image} className="product-image" />
                 <Card.Text className="product-price">
                   Price: ${product.price}
                 </Card.Text>

@@ -7,6 +7,11 @@ const Add = ({ onAddProduct }) => {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImage(URL.createObjectURL(file));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newProduct = {
@@ -35,7 +40,6 @@ const Add = ({ onAddProduct }) => {
             required
           />
           <br />
-
           <Form.Control
             type="text"
             value={description}
@@ -44,25 +48,16 @@ const Add = ({ onAddProduct }) => {
             required
           />
           <br />
-
-          <Form.Control
-            type="file"
-            value={image}
-            placeholder="Image"
-            onChange={(event) => setImage(event.target.value)}
-            required
-          />
+          <Form.Control type="file" onChange={handleImageChange} required />
           <br />
-
           <Form.Control
-            type="text"
+            type="number"
             value={price}
             placeholder="Price"
             onChange={(event) => setPrice(event.target.value)}
             required
           />
           <br />
-
           <div className="text-center">
             <Button type="submit" onSubmit={handleSubmit}>
               Submit
