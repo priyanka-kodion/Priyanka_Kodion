@@ -11,14 +11,14 @@ const Show = ({ products }) => {
         <div className="card-container">
           {products.map((product, index) => (
             <Card key={index} className="product-card">
+              <img
+                src={process.env.PUBLIC_URL + product.image}
+                className="card-img-top"
+                alt={product.title}
+              />
               <Card.Body>
-                <Card.Title className="product-title">
-                  {product.title}
-                </Card.Title>
-                <Card.Text className="product-description">
-                  {product.description}
-                </Card.Text>
-                <Card.Img src={product.image} className="product-image" />
+                <Card.Title>{product.title}</Card.Title>
+                <Card.Text>{product.description}</Card.Text>
                 <Card.Text className="product-price">
                   Price: ${product.price}
                 </Card.Text>

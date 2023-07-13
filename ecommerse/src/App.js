@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Add from "./Components/Add";
+import Edit from "./Components/Edit";
 import List from "./Components/List";
 import Show from "./Components/Show";
 import "./App.css";
@@ -10,6 +11,12 @@ const App = () => {
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
+  };
+
+  const handleDelete = (index) => {
+    const updatedProducts = [...products];
+    updatedProducts.splice(index, 1);
+    setProducts(updatedProducts);
   };
 
   return (
@@ -42,9 +49,19 @@ const App = () => {
       </nav>
 
       <Routes>
-        <Route path="/show" element={<Show products={products} />} />
+        <Route
+          path="/show"
+          element={<Show products={products} handleDelete={handleDelete} />}
+        />
         <Route path="/add" element={<Add onAddProduct={handleAddProduct} />} />
-        <Route path="/list" element={<List products={products} />} />
+        <Route
+          path="/list"
+          element={<List products={products} handleDelete={handleDelete} />}
+        />
+        <Route
+          path="/edit/:index"
+          element={<Edit products={products} onAddProduct={handleAddProduct} />}
+        />
       </Routes>
     </Router>
   );
