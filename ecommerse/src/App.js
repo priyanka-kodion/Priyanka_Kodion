@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Add from "./Components/Add";
 import Edit from "./Components/Edit";
 import List from "./Components/List";
+import Cart from "./Components/Cart";
 import Show from "./Components/Show";
+import Detail from "./Components/Detail";
 import "./App.css";
 
 const App = () => {
@@ -11,6 +13,12 @@ const App = () => {
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
+  };
+
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
   };
 
   const handleDelete = (index) => {
@@ -33,6 +41,7 @@ const App = () => {
                   Show
                 </Link>
               </li>
+
               <li className="nav-item">
                 <Link className="nav-link" to="/add">
                   Add Product
@@ -43,6 +52,11 @@ const App = () => {
                   Product List
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/cart">
+                  Cart
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -51,7 +65,13 @@ const App = () => {
       <Routes>
         <Route
           path="/show"
-          element={<Show products={products} handleDelete={handleDelete} />}
+          element={
+            <Show
+              products={products}
+              handleDelete={handleDelete}
+              addToCart={addToCart}
+            />
+          }
         />
         <Route path="/add" element={<Add onAddProduct={handleAddProduct} />} />
         <Route
@@ -60,7 +80,23 @@ const App = () => {
         />
         <Route
           path="/edit/:index"
-          element={<Edit products={products} onAddProduct={handleAddProduct} />}
+          element={
+            <Edit
+              products={products}
+              onAddProduct={handleAddProduct}
+              setProducts={setProducts}
+            />
+          }
+        />
+        <Route
+          path="/detail/:currentId"
+          element={<Detail products={products} />}
+        />
+        <Route
+          path="/cart"
+          element={
+            <Cart cart={cart} products={products} addToCart={addToCart} />
+          }
         />
       </Routes>
     </Router>

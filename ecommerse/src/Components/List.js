@@ -18,14 +18,14 @@ function List({ products, handleDelete, handleEdit }) {
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
               <Card.Text className="product-price">
-                Price: ${product.price}
+                Price: ₹{product.price}
               </Card.Text>
               <div className="button-container">
                 <Button
                   className="edit-button"
                   as={Link}
                   to={`/edit/${index}`}
-                  variant="primary"
+                  variant="warning"
                 >
                   Edit
                 </Button>

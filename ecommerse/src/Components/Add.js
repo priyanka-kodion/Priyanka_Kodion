@@ -1,29 +1,83 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-
+import { Form, Button, Alert } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 const Add = ({ onAddProduct }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
+  const [titleError, setTitleError] = useState(null);
+  const [descriptionError, setDescriptionError] = useState(null);
+  const [imageError, setImageError] = useState(null);
+  const [priceError, setPriceError] = useState(null);
+  const [showErrors, setShowErrors] = useState(false);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(URL.createObjectURL(file));
+    setImageError(null); // Clear the image error when an image is selected
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!title || !description || !image || !price) {
+      setTitleError(!title ? "Please enter a title" : null);
+      setDescriptionError(!description ? "Please enter a description" : null);
+      setImageError(!image ? "Please select an image" : null);
+      setPriceError(!price ? "Please enter a price" : null);
+      setShowErrors(true);
+      return;
+    }
+
     const newProduct = {
+      id: uuidv4(),
       title,
       description,
       image,
       price,
     };
+    console.log(newProduct, "weeww");
     onAddProduct(newProduct);
     setTitle("");
     setDescription("");
     setImage("");
     setPrice("");
+    setTitleError(null);
+    setDescriptionError(null);
+    setImageError(null);
+    setPriceError(null);
+    setShowErrors(false);
+  };
+
+  const handleTitleChange = (event) => {
+    const value = event.target.value;
+    setTitle(value);
+    if (value.length > 15) {
+      setTitleError("Title should be up to 15 characters");
+    } else {
+      setTitleError(null);
+    }
+  };
+
+  const handleDescriptionChange = (event) => {
+    const value = event.target.value;
+    setDescription(value);
+    if (value.length > 15) {
+      setDescriptionError("Description should be up to 15 characters");
+    } else {
+      setDescriptionError(null);
+    }
+  };
+
+  const handlePriceChange = (event) => {
+    const value = event.target.value;
+    setPrice(value);
+    if (value.length > 15) {
+      setPriceError("Price should be up to 15 characters");
+    } else {
+      setPriceError(null);
+    }
   };
 
   return (
@@ -35,27 +89,36 @@ const Add = ({ onAddProduct }) => {
             type="text"
             value={title}
             placeholder="Title"
-            onChange={(event) => setTitle(event.target.value)}
-            required
+            onChange={handleTitleChange}
           />
+          {showErrors && titleError && (
+            <Alert variant="danger">{titleError}</Alert>
+          )}
           <br />
           <Form.Control
             type="text"
             value={description}
             placeholder="Description"
-            onChange={(event) => setDescription(event.target.value)}
-            required
+            onChange={handleDescriptionChange}
           />
+          {showErrors && descriptionError && (
+            <Alert variant="danger">{descriptionError}</Alert>
+          )}
           <br />
-          <Form.Control type="file" onChange={handleImageChange} required />
+          <Form.Control type="file" onChange={handleImageChange} />
+          {showErrors && imageError && (
+            <Alert variant="danger">{imageError}</Alert>
+          )}
           <br />
           <Form.Control
             type="number"
             value={price}
             placeholder="Price"
-            onChange={(event) => setPrice(event.target.value)}
-            required
+            onChange={handlePriceChange}
           />
+          {showErrors && priceError && (
+            <Alert variant="danger">{priceError}</Alert>
+          )}
           <br />
           <div className="text-center">
             <Button type="submit" onSubmit={handleSubmit}>
