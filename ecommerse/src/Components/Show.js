@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import "sweetalert2/dist/sweetalert2.css";
 
 const Show = ({ products, addToCart }) => {
+  const navigate = useNavigate();
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    Swal.fire({
+      icon: "success",
+      title: "Added to cart",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then((result) => {
+      navigate("/cart");
+    });
+  };
+
   return (
     <div className="show">
       <h3 className="show-heading">Products</h3>
@@ -35,7 +51,7 @@ const Show = ({ products, addToCart }) => {
                   <Button
                     className="add-button"
                     variant="success"
-                    onClick={() => addToCart(product)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Add to cart
                   </Button>

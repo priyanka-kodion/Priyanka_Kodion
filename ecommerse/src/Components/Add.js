@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import "sweetalert2/dist/sweetalert2.css";
 const Add = ({ onAddProduct }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -11,6 +14,7 @@ const Add = ({ onAddProduct }) => {
   const [imageError, setImageError] = useState(null);
   const [priceError, setPriceError] = useState(null);
   const [showErrors, setShowErrors] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -29,6 +33,14 @@ const Add = ({ onAddProduct }) => {
       setShowErrors(true);
       return;
     }
+    Swal.fire({
+      icon: "success",
+      title: "Product Added",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then((result) => {
+      navigate("/show");
+    });
 
     const newProduct = {
       id: uuidv4(),

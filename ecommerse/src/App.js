@@ -8,25 +8,63 @@ import Show from "./Components/Show";
 import Detail from "./Components/Detail";
 import "./App.css";
 
+import { Alert } from "react-bootstrap";
+
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+  //const [item, setItem] = useState([]);
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
   };
 
-  const [cart, setCart] = useState([]);
-
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    const existingProduct = cart.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
+  };
+  const onAddQuantity = (productId) => {
+    setCart(
+      cart.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
   };
 
+  const onDeleteQuantity = (productId) => {
+    setCart(
+      cart.map((item) =>
+        item.id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+  const onDeleteItem = (productId) => {
+    setCart(cart.filter((item) => item.id !== productId));
+  };
   const handleDelete = (index) => {
     const updatedProducts = [...products];
     updatedProducts.splice(index, 1);
     setProducts(updatedProducts);
   };
-
+  const handleCheckout = () => {
+    // Implement your checkout logic here
+    // For example, you can redirect to the checkout page
+    // using the React Router "history" object or window.location.href
+    alert("Proceeding to checkout...");
+  };
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -95,7 +133,15 @@ const App = () => {
         <Route
           path="/cart"
           element={
-            <Cart cart={cart} products={products} addToCart={addToCart} />
+            <Cart
+              cart={cart}
+              products={products}
+              addToCart={addToCart}
+              onAddQuantity={onAddQuantity}
+              onDeleteQuantity={onDeleteQuantity}
+              onDeleteItem={onDeleteItem}
+              handleCheckout={handleCheckout}
+            />
           }
         />
       </Routes>

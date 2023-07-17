@@ -277,8 +277,9 @@ h2 {
   font-weight: bold;
 }
 .cart {
-  margin-top: 20px;
-  padding: 10px;
+  margin: 60px;
+  margin-top: 16px;
+  padding: 50px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -313,4 +314,10 @@ h2 {
 
 .cart-table tbody tr:last-child td {
   border-bottom: none;
+}
+
+.checkout-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust this value to control the vertical spacing */
 }
