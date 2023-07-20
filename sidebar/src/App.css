@@ -41,6 +41,7 @@
   padding: 0;
   text-decoration: none;
 }
+/* }
 .container {
   display: flex;
 }
@@ -54,6 +55,7 @@ main {
   height: 100vh;
   width: 156px;
   transition: all 0.5s;
+  display: flex;
 }
 .top_section {
   display: flex;
@@ -62,6 +64,7 @@ main {
 }
 .logo {
   font-size: 25px;
+  margin-top: o;
 }
 .bars {
   display: flex;
@@ -98,4 +101,150 @@ main {
 
 .logo.checked ~ .menu_items {
   display: block;
+}
+.app-container {
+  display: flex;
+} */
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  background-color: #292f3f;
+  min-height: 100vh;
+  color: #fff;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 25px;
+  margin-top: o;
+}
+
+.bars {
+  display: flex;
+  font-size: 25px;
+  margin-left: 30px;
+}
+
+.menu_items {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.menu_item {
+  margin-bottom: 15px;
+}
+.top_section {
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+}
+.link {
+  display: flex;
+  color: #fff;
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+}
+.link:hover {
+  background: lightskyblue;
+  color: #000;
+  transition: all 0.5s;
+}
+.active {
+  background: lightskyblue;
+  color: #000;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.link_text {
+  display: none;
+}
+
+.show-text .link_text {
+  display: block;
+}
+
+.active {
+  background-color: #3b4252;
+  border-radius: 5px;
+}
+.app-container {
+  display: flex;
+}
+.home {
+  text-align: center;
+}
+.about {
+  margin-left: auto;
+  text-align: center;
+}
+.signup {
+  margin-left: auto;
+  text-align: center;
+}
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Horizontally center the button */
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 300px;
+  margin-left: 500px;
+  position: fixed;
+}
+
+/* Hover Style */
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Active/Click Style */
+.button:active {
+  background-color: #004080;
+}
+
+/* Disabled Style */
+.button:disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 63%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 50px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

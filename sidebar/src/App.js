@@ -5,7 +5,7 @@ import { SidebarProvider } from "./Components/SidebarContext";
 import Home from "./Components/Home";
 import About from "./Components/About";
 import Signup from "./Components/Signup";
-
+import { PopupProvider } from "./Components/PopupContext";
 import "./App.css";
 
 function App() {
@@ -13,12 +13,16 @@ function App() {
     <React.StrictMode>
       <Router>
         <SidebarProvider>
-          <SideNavbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
+          <PopupProvider>
+            <div className="app-container">
+              <SideNavbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/signup" element={<Signup />} />
+              </Routes>
+            </div>
+          </PopupProvider>
         </SidebarProvider>
       </Router>
     </React.StrictMode>
